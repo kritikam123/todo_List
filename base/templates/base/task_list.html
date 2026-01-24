@@ -1,48 +1,46 @@
 {% extends 'base/main.html' %}
-
 {% block content %}
-{% if request.user.is_authenticated %}
-    <p>Welcome, {{request.user}}!
-      <form method="POST" action="{% url 'logout' %}">
-    {% csrf_token %}
-    <button type="submit">Logout</button>
-</form>
-  
-{% else %}
-    <p><a href="{% url 'login' %}">Login</a> | <a href="">Sign Up</a></p>
-{% endif %}
 
-<hr>
-<h1>To Do List</h1>
-<a href="{% url 'tasks-create' %}">Add Task</a>
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <div>
+        <h2 style="margin: 0;">My Daily Tasks ✨</h2>
+        <p style="color: var(--primary-pink); margin: 0; font-size: 0.9rem;">You have <b>{{count}}</b> pending items</p>
+    </div>
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn-action btn-edit" style="border:none; cursor:pointer;">Logout</button>
+    </form>
+</div>
 
-<form method="GET">
-    <input type="text" name="search-area" placeholder="Search" value="{{search_input}}">
-    <input type ="submit" value="Search">
+<hr style="border: 0; border-top: 1px solid #eee; margin-bottom: 20px;">
 
-</form>
+<div style="display: flex; gap: 10px; margin-bottom: 30px;">
+    <form method="GET" style="flex: 1; display: flex; gap: 10px;">
+        <input type="text" name="search-area" placeholder="Find a task..." value="{{search_input}}" class="search-bar">
+        <input type="submit" value="Search" class="btn-main">
+    </form>
+    <a href="{% url 'tasks-create' %}" class="btn-main" style="display: flex; align-items: center; justify-content: center;">+</a>
+</div>
 
-<table>
-    <tr>
-        <th>Item</th>
-    </tr>
+<div class="task-items-wrapper">
     {% for task in tasks %}
-    <tr>
-        <td>{{task.title}}</td>
-    
-        <td><a href="{% url 'task-update' task.id %}">Edit</a></td>
-        <td><a href="{% url 'task-delete' task.id %}">Delete</a></td>
-
-
-
-    </tr>
+    <div class="task-row">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            {% if task.complete %}
+                <span style="color: #ccc;"><s>{{task.title}}</s></span>
+            {% else %}
+                <span>{{task.title}}</span>
+            {% endif %}
+        </div>
+        
+        <div class="task-controls">
+            <a href="{% url 'task-update' task.id %}" class="btn-action btn-edit">Edit</a>
+            <a href="{% url 'task-delete' task.id %}" class="btn-action btn-delete">Delete</a>
+        </div>
+    </div>
     {% empty %}
-    <h3>No items in list</h3>
+    <p style="text-align: center; color: #999;">Your list is empty. Time to relax! 🌸</p>
     {% endfor %}
-
-</table>
+</div>
 
 {% endblock content %}
-
-
-

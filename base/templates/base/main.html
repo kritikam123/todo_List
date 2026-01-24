@@ -1,49 +1,108 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>To-Do List</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDoe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
     <style>
+        :root {
+            --primary-pink: #ffafcc;
+            --soft-purple: #cdb4db;
+            --bg-gradient: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+            --text-dark: #5e548e;
+            --white: #ffffff;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #d5d4db;
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-gradient);
             margin: 0;
-            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            padding-top: 50px;
+            color: var(--text-dark);
         }
+
         .container {
-            width: 80%;
-            margin: auto;
-            overflow: hidden;
+            width: 90%;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            height: fit-content;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
+
+        /* UI Button Styling for Edit/Delete */
+        .btn-action {
+            text-decoration: none;
+            font-size: 0.8rem;
+            padding: 6px 12px;
+            border-radius: 12px;
+            transition: 0.3s;
+            display: inline-block;
+            font-weight: 600;
         }
-        table, th, td {
-            border: 1px solid black;
+
+        .btn-edit {
+            background-color: #f0f0f0;
+            color: #888;
         }
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-        th {
-            background-color: #333;
+
+        .btn-edit:hover {
+            background-color: var(--soft-purple);
             color: white;
         }
-        a {
-            text-decoration: none;
-            color: #333;
+
+        .btn-delete {
+            background-color: #fff5f5;
+            color: #ff8b94;
+            margin-left: 5px;
         }
-        a:hover
-         {
-            text-decoration: underline;
+
+        .btn-delete:hover {
+            background-color: #ff8b94;
+            color: white;
+        }
+
+        /* Search & Add Button UI */
+        .search-bar {
+            padding: 10px 15px;
+            border-radius: 15px;
+            border: 2px solid #f0f0f0;
+            outline: none;
+            width: 70%;
+        }
+
+        .btn-main {
+            background: var(--primary-pink);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        /* Task Row Styling */
+        .task-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
         }
     </style>
 </head>
-
 <body>
-   <div class="container">
-    {% block content %}
-    {% endblock content %}
-
-   </div>
+    <div class="container">
+        {% block content %}
+        {% endblock content %}
+    </div>
 </body>
 </html>
